@@ -1,0 +1,21 @@
+{
+  "name": "phpoe22-brs",
+  "description": "",
+  "main": "",
+  "authors": [
+    "dungpt <phamtrungdung1212@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dungpt1212/phpoe22-brs",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lib": "https://github.com/dungpt1212/bower_prj1_suntraining.git"
+  }
+}

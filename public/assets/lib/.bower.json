@@ -1,0 +1,26 @@
+{
+  "name": "lib",
+  "authors": [
+    "dungpt <phamtrungdung1212@gmail.com>"
+  ],
+  "description": "Bower for project 1 tranning sun",
+  "main": "/",
+  "keywords": [
+    "bower_prj1_suntraining"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dungpt1212/bower_prj1_suntraining.git",
+  "ignore": [
+    "README.md"
+  ],
+  "_release": "d560ab1449",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "d560ab14494c265357969a82aa7f605556fdf54f"
+  },
+  "_source": "https://github.com/dungpt1212/bower_prj1_suntraining.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/dungpt1212/bower_prj1_suntraining.git",
+  "_direct": true
+}
