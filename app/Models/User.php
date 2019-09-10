@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(RequestNewbook::class);
     }
+
+    public function reviewLikes()
+    {
+        return $this->hasMany(ReviewLike::class);
+    }
+
+    public function userFollows()
+    {
+        return $this->hasMany(UserFollow::class);
+    }
 }

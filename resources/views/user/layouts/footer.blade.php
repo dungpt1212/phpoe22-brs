@@ -10,7 +10,6 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="payment text-right">
-                    <img src="images/icons/payment.png" alt="">
                 </div>
             </div>
         </div>
