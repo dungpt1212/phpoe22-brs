@@ -9,13 +9,15 @@
             </div>
             <div class="card-body">
                 <a href="{{ route('book.edit', $data->id) }}" class="btn btn-info">{{ trans('admin.edit') }}</a>
-                <form method="post" action="{{ route('book.destroy', ['book' => $data->id]) }}" class="float-left">
-                    @method('DELETE')
-                    @csrf
-                    <div>
-                        <button type="submit" class="btn btn-warning">{{ trans('admin.delete') }}</button>
-                    </div>
-                </form>
+                @permission('book-delete')
+                    <form method="post" action="{{ route('book.destroy', ['book' => $data->id]) }}" class="float-left">
+                        @method('DELETE')
+                        @csrf
+                        <div>
+                            <button type="submit" class="btn btn-warning">{{ trans('admin.delete') }}</button>
+                        </div>
+                    </form>
+                 @endpermission
                 <div class="clearfix"></div>
             </div>
         </div>

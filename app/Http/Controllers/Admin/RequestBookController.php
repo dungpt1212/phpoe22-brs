@@ -12,7 +12,8 @@ class RequestBookController extends Controller
 {
     public function index()
     {
-        $requestBook = RequestNewbook::paginate(config('limitdata.list_records'));
+        $requestBook = RequestNewbook::orderBy('id', 'DESC')
+            ->paginate(config('limitdata.list_records'));
 
         return view('admin.book.requestbook', compact('requestBook'));
     }

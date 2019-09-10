@@ -93,7 +93,7 @@
         @endif
         <div class="container-fluid" id="all_reviews">
             @foreach($reviews as $review)
-                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 mt-3 ">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 mt-3 review{{ $review->id }} ">
                     <div class="container-fluid comment">
                         <div class="row mt-2">
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-1">
@@ -168,7 +168,7 @@
                                                             </div>
                                                             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-11">
                                                                 <p class="gmail_comment">
-                                                                    <b>{{ $comment->user->email }}</b>
+                                                                    <a href="{{ route('show-detail-user', $review->user->id) }}"> <b>{{ $review->user->email }}</b></a>
                                                                     <span class="ml-3 text-secondary">{{ $comment->created_at }}</span>
                                                                     @if($comment->user->email == Auth::user()->email)
                                                                         <span class="ml-5">

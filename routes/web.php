@@ -90,5 +90,15 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'cp-admin'], function () {
         Route::resource('book', 'BookController');
         Route::resource('editbook','RequestBookController');
+        Route::resource('book', 'BookController');
+        Route::resource('user', 'UserController');
+        Route::resource('role', 'RoleController');
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+        Route::get('/notification/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('notification.detail');
     });
+
 });
+
+Route::get('testPusher', 'PusherController@index');
+Route::get('filePusher', 'PusherController@filePusher');
+

@@ -61,6 +61,7 @@ class BookDetailController extends Controller
             $book = Book::findOrFail($id);
         }catch (ModelNotFoundException $exception) {
             return view('errors.notfound');
+        }
 
         $bookKey = 'book_'.$id;
         if(!Session::has($bookKey)){

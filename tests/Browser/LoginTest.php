@@ -25,7 +25,8 @@ class ExampleTest extends DuskTestCase
                     ->type('password', 'password')
                     ->press('Login')
                     ->assertPathIs('/login')
-                    ->assertSee('Login');
+                    ->assertSee('Login')
+                    ->assertRouteIs('login');
         });
     }
 
@@ -41,7 +42,8 @@ class ExampleTest extends DuskTestCase
                     ->type('password', 'password')
                     ->press('Login')
                     ->assertPathIs('/')
-                    ->assertSee('NEW UPDATED BOOKS');
+                    ->assertSee('NEW UPDATED BOOKS')
+                    ->assertRouteIs('homepage');
         });
     }
 

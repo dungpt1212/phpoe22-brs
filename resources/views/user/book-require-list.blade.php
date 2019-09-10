@@ -30,7 +30,13 @@
                                 <td>{{ $request->book_name }}</td>
                                 <td>{{ $request->author }}</td>
                                 <td>{{ $request->request_content }}</td>
-                                <td>{!! $request->status !!}</td>
+                                <td>
+                                    @if ($request->status == \App\Enums\Status::Resolve)
+                                        <b>{{ trans('admin.resolve') }}</b>
+                                    @elseif ($request->status == \App\Enums\Status::Processing)
+                                        {{ trans('admin.processing') }}
+                                    @endif
+                                </td>
                                 <td>
                                     @if($request->status == trans('client.processing'))
                                         <a href="{{ route('require.edit', $request->id) }}" class="btn btn-sm btn-primary btn_require_edit">{{ trans('client.edit') }}</a>

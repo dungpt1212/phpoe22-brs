@@ -15,10 +15,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-<<<<<<< HEAD
-/public/ckeditor_4.12.1_standard/
-/public/images/
-=======
 /public/ckeditor_4.12.1_standard
 /public/images
->>>>>>> FixBookController

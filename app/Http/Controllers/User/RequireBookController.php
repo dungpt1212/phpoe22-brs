@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Events\CreateRequireAddNewBookEvent;
 use App\Repositories\RequestNewBook\RequestNewBookRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Notifications\NoticeToAdminWhenUserSendNewRequestBook;
 
 class RequireBookController extends Controller
 {
@@ -60,10 +61,8 @@ class RequireBookController extends Controller
         $data = $request->all();
         $data['user_id'] = $this->userRepo->getAuthId();
         $requestNewbook = $this->requireBookRepo->create($data);
-
-        if($requestNewbook->wasRecentlyCreated == true) {
-            event(new CreateRequireAddNewBookEvent($requestNewbook));
-        }
+        $user = $this->userRepo->find($this->userRepo->getAuthId());
+        $user->notify(new NoticeToAdminWhenUserSendNewRequestBook($requestNewbook));
 
         return redirect(route('require.index'))->with('status', trans('client.add_success'));
     }
@@ -92,7 +91,7 @@ class RequireBookController extends Controller
             return view('errors.notfound');
         }
 
-        if(($require->status == trans('client.resolved')) || ($require->user_id != $this->userRepo->getAuthId())) {
+        if(($require->status == \App\Enums\Status::Resolve) || ($require->user_id != $this->userRepo->getAuthId())) {
             return view('errors.notfound');
         }
 
@@ -131,7 +130,7 @@ class RequireBookController extends Controller
             return view('errors.notfound');
         }
 
-        if(($require->status == trans('client.resolved')) || ($require->user_id != $this->userRepo->getAuthId())) {
+        if(($require->status ==\App\Enums\Status::Resolve) || ($require->user_id != $this->userRepo->getAuthId())) {
             return view('errors.notfound');
         }
 

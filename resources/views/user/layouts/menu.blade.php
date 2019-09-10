@@ -62,7 +62,7 @@
                                         <a class="currency-trigger" href="{{ route('profile-edit') }}">{{ trans('client.change_profile') }}</a>
                                         <a class="currency-trigger" href="{{ route('profile-following') }}">{{ trans('client.following') }}</a>
                                         <a class="currency-trigger" href="{{ route('profile-follower') }}">{{ trans('client.follower') }}</a>
-                                        <a class="currency-trigger" href="{{ route('logout') }}">
+                                        <a class="currency-trigger logout" href="javascript:void(0)">
                                             {{ trans('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
