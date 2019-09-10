@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "lib": "https://github.com/dungpt1212/bower_prj1_suntraining.git"
+    "lib": "https://github.com/dungpt1212/bower_prj1_suntraining.git",
+    "ckeditor-dev": "^4.12.1"
   }
 }

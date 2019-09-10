@@ -85,7 +85,7 @@ class RequireBookController extends Controller
     public function edit($id)
     {
         $require = RequestNewbook::findOrFail($id);
-        if($require->status == trans('client.resolved')){
+        if(($require->status == trans('client.resolved')) || ($require->id != Auth::user()->id)) {
             return abort(404);
         }
         return view('user.book-require-update', compact('require'));
@@ -117,6 +117,9 @@ class RequireBookController extends Controller
     public function destroy($id)
     {
         $require = RequestNewbook::findOrFail($id);
+        if(($require->status == trans('client.resolved')) || ($require->id != Auth::user()->id)) {
+            return abort(404);
+        }
         $require->delete();
 
         return redirect(route('require.index'))->with('status', trans('client.delete_success'));

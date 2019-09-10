@@ -88,5 +88,6 @@ return [
     'following' => 'Following',
     'your_following_list' => 'Your Followings List',
     'your_follower_list' => 'Your followers List',
+    'notfound' => 'Cannot find data',
 
 ];

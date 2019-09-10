@@ -10,6 +10,7 @@ use App\Models\BookUser;
 use App\Models\Book;
 use App\Models\UserFollow;
 use App\Models\UserActivity;
+use App\Models\Role_User;
 
 class UserFollowOtherController extends Controller
 {
@@ -22,6 +23,11 @@ class UserFollowOtherController extends Controller
     public function detailUser($id)
     {
         $user = User::findOrFail($id);
+        $role_user = Role_User::where('user_id', '=', $id);
+        if($role_user->count() != 0){
+            return view('errors.notfound');
+        }
+
         $followersThisUser = $user->userFollows;
         $numberFollower = $followersThisUser->count();
         $followed = $user->userFollows->where('follower', Auth::user()->id)->count();
