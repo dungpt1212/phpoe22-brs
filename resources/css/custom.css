@@ -136,4 +136,23 @@ label {
 }
 .logout-form {
     display: none;
-
+}
+.input_edit_comment {
+    display: none;
+}
+.input_edit_review {
+    display: none;
+}
+.btn_require_edit {
+    width: 55px;
+}
+.user_detail .avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.following img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}

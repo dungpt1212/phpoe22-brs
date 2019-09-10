@@ -1,8 +1,8 @@
 @extends('user.layouts.master')
-@section('title', trans('favorite'))
+@section('title', trans('client.category'))
 @section('content')
 <div class="container top">
-    <h3 class="text-center mb-4">{{ trans('client.your_favorite_book') }}</h3>
+    <h3 class="text-center mb-4">{{ trans('client.there') }} {{ $books->total() }} {{ trans('client.results_keyword') }} "{{ $keyword }}"</h3>
     <div class="row">
         @foreach($books as $book)
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-5 detail">
@@ -51,5 +51,11 @@
             </div>
         @endforeach
     </div>
+    <div class="row mt-5">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            {{ $books->appends(Request::except('page'))->links() }}
+        </div>
+    </div>
 </div>
+
 @endsection

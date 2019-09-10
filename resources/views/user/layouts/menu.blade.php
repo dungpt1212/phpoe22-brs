@@ -34,7 +34,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a href="{{ route('book-require') }}">{{ trans('client.your_require') }}</a></li>
+                        <li><a href="{{ route('require.create') }}">{{ trans('client.your_require') }}</a></li>
                         @if (!Auth::check())
                             <li><a href="{{ route('login') }}">{{ trans('client.sign_in') }}</a></li>
                             <li><a href="{{ route('register') }}">{{ trans('client.register') }}</a></li>
@@ -60,6 +60,8 @@
                                 <div class="switcher-options">
                                     <div class="switcher-currency-trigger">
                                         <a class="currency-trigger" href="{{ route('profile-edit') }}">{{ trans('client.change_profile') }}</a>
+                                        <a class="currency-trigger" href="{{ route('profile-following') }}">{{ trans('client.following') }}</a>
+                                        <a class="currency-trigger" href="{{ route('profile-follower') }}">{{ trans('client.follower') }}</a>
                                         <a class="currency-trigger" href="{{ route('logout') }}">
                                             {{ trans('Logout') }}
                                         </a>
@@ -85,11 +87,13 @@
 
 <!-- Start Search Popup -->
 <div class="brown--color box-search-content search_active block-bg close__top">
-    <form id="search_mini_form" class="minisearch" action="#">
+    <form id="search_mini_form" class="minisearch" action="{{ route('user-search') }}" method="GET">
+        @csrf
         <div class="field__search">
-            <input type="text" placeholder="{{ trans('search') }}">
+            <input type="text" placeholder="{{ trans('search') }}" name="keyword">
             <div class="action">
-                <a href="#"><i class="zmdi zmdi-search"></i></a>
+               <!--  <a href="#"><i class="zmdi zmdi-search"></i></a> -->
+                <button type="submit" class="zmdi zmdi-search" >{{ trans('search') }}</button>
             </div>
         </div>
     </form>

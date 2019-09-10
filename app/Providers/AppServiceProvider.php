@@ -17,8 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(
-            \App\Repositories\Author\AuthorRepositoryInterface::class,
-            \App\Repositories\Author\AuthorRepository::class
+            \App\Repositories\RequestNewBook\RequestNewBookRepositoryInterface::class,
+            \App\Repositories\RequestNewBook\RequestNewBookRepository::class
         );
 
         $this->app->singleton(
@@ -34,6 +34,36 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             \App\Repositories\Publisher\PublisherRepositoryInterface::class,
             \App\Repositories\Publisher\PublisherRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\Author\AuthorRepositoryInterface::class,
+            \App\Repositories\Author\AuthorRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\AuthorBook\AuthorBookRepositoryInterface::class,
+            \App\Repositories\AuthorBook\AuthorBookRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\UserActivity\UserActivityRepositoryInterface::class,
+            \App\Repositories\UserActivity\UserActivityRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\User\UserRepositoryInterface::class,
+            \App\Repositories\User\UserRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\UserFollow\UserFollowRepositoryInterface::class,
+            \App\Repositories\UserFollow\UserFollowRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\BookUser\BookUserRepositoryInterface::class,
+            \App\Repositories\BookUser\BookUserRepository::class
         );
     }
 

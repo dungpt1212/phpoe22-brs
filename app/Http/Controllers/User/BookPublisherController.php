@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Publisher;
-use App\Models\Book;
+use App\Repositories\Book\BookRepositoryInterface;
+use App\Repositories\Publisher\PublisherRepositoryInterface;
 
 class BookPublisherController extends Controller
 {
+    protected $bookRepo;
+    protected $publisherRepo;
+
+    public function __construct(BookRepositoryInterface $bookRepo, PublisherRepositoryInterface $publisherRepo)
+    {
+        $this->bookRepo = $bookRepo;
+        $this->publisherRepo = $publisherRepo;
+    }
+
      public function index($id)
     {
-        try {
-            $publisher = Publisher::findOrFail($id);
-        }catch (ModelNotFoundException $exception) {
+        $publisher = $this->publisherRepo->find($id);
+        if($publisher == false){
             return view('errors.notfound');
         }
-
-        $books = Book::with('rates', 'publisher')
-            ->where('publisher_id', $id)
-            ->paginate(config('limitdata.category'));
+        $books = $this->bookRepo->getBookPanigateByCategory($id);
 
         return view('user.book-publisher', compact('publisher', 'books'));
-
     }
 }

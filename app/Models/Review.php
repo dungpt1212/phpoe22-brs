@@ -27,4 +27,10 @@ class Review extends Model
     {
         return $this->belongsTo(Book::class, 'book_id');
     }
+
+    public function reviewLikes()
+    {
+        return $this->hasMany(ReviewLike::class);
+    }
+
 }

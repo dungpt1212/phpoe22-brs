@@ -9,6 +9,7 @@ $factory->define(UserActivity::class, function (Faker $faker) {
     return [
         'user_id' => $faker -> numberBetween($min = 1, $max=10),
         'activity_id' => $faker -> numberBetween($max = 1, $max = 6),
-        'type_id' => $faker -> numberBetween($min = 0, $max = 1),
+        'type_id' => 0,
+
     ];
 });

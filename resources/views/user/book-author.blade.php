@@ -23,11 +23,8 @@
                             <p>
                                 @include('user.layouts.display-rate')
                             </p>
-                            <p> {{ avgRate($book->rates) }} {{ trans('client.votes') }}
-                                <span class="compare ml-2" href="#">
-                                        <i class="bi bi-heart-beat text-danger" title="{{ trans('client.favorite') }}"></i>
-                                </span>
-                            </p>
+                            <p> {{ $book->rates->count() }} {{ trans('client.votes') }}<span class="compare ml-2" href="#"><i class="bi bi-heart-beat text-danger" title="{{ trans('client.favorite') }}"></i></a></span></p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
