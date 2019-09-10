@@ -20,7 +20,6 @@ class BookCategoryController extends Controller
 
     public function index($id)
     {
-
         $category = $this->categoryRepo->find($id);
         if($category == false){
             return view('errors.notfound');
