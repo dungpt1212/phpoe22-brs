@@ -12,11 +12,11 @@ class BookAuthorController extends Controller
 {
     public function index($id)
     {
-        $author = Author::find($id);
+        $author = Author::findOrFail($id);
         $bookAuthor = AuthorBook::where('author_id', '=', $id)->pluck('book_id');
         $books = Book::with('rates', 'publisher')
             ->whereIn('id', $bookAuthor)
-            ->paginate(8);
+            ->paginate(config('limitdata.category'));
 
         return view('user.book-author', compact('books', 'author'));
     }

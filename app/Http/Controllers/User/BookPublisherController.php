@@ -11,9 +11,9 @@ class BookPublisherController extends Controller
 {
      public function index($id)
     {
-        $publisher = Publisher::find($id);
+        $publisher = Publisher::findOrFail($id);
         $books = Book::with('rates', 'publisher')
-            ->where('publisher_id', '=', $id)
+            ->where('publisher_id', $id)
             ->paginate(config('limitdata.category'));
 
         return view('user.book-publisher', compact('publisher', 'books'));
