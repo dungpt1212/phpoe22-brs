@@ -11,58 +11,66 @@
 |
 */
 
-/*home*/
-Route::get('/', function () {
-    return view('user.home');
-})->name('home');
-// book
-Route::group(['prefix' => 'book'], function(){
-    Route::get('/detail', function(){
-        return view('user.book-detail');
-    })->name('book-detail');
+Route::group(['namespace' => 'User'], function(){
+    /*homepage*/
+    Route::get('/', 'HomeController@index')->name('homepage');
+    // book
+    Route::group(['prefix' => 'book'], function(){
 
-    Route::get('/read', function(){
-        return view('user.book-read');
-    })->name('book-read');
+        Route::get('/detail/{id}', 'BookDetailController@index')->name('book-detail');
 
-    Route::get('/categories', function(){
-        return view('user.book-category');
-    })->name('book-category');
+        Route::post('/detail/{id}', 'BookDetailController@voteBook')->name('book-detail-vote');
 
-    Route::get('/favorite', function(){
-        return view('user.book-favorite');
-    })->name('book-favorite');
+        Route::post('/detail/{id}/review', 'BookDetailController@reviewBook')->name('book-detail-review');
 
-    Route::get('/reading', function(){
-        return view('user.book-reading');
-    })->name('book-reading');
+        Route::post('/detail/{id}/reply', 'BookDetailController@replyReview')->name('book-detail-reply');
 
-    Route::get('/require', function(){
-        return view('user.book-require');
-    })->name('book-require');
+        Route::post('/detail/{id}/reply/edit', 'BookDetailController@editReply')->name('book-detail-reply-edit');
+
+        Route::post('/detail/reply/delete', 'BookDetailController@deleteReply')->name('book-detail-reply-delete');
+
+        Route::get('/read/{id}', 'BookDetailController@readBook')->name('book-read');
+
+        Route::get('/categories/{id}', 'BookCategoryController@index')->name('book-category');
+
+        Route::get('/author/{id}', 'BookAuthorController@index')->name('book-author');
+
+        Route::get('/publisher/{id}', 'BookPublisherController@index')->name('book-publisher');
+
+        Route::get('/favorite', function(){
+            return view('user.book-favorite');
+        })->name('book-favorite');
+
+        Route::get('/reading', function(){
+            return view('user.book-reading');
+        })->name('book-reading');
+
+        Route::get('/require', function(){
+            return view('user.book-require');
+        })->name('book-require');
+    });
+    // profile
+    Route::group(['prefix' => 'profile'], function(){
+        Route::get('/edit', function(){
+            return view('user.profile-edit');
+        })->name('profile-edit');
+    });
+    /*activity*/
+    Route::get('/activities', function(){
+            return view('user.activity');
+    })->name('activity');
+
 });
-// profile
-Route::group(['prefix' => 'profile'], function(){
-    Route::get('/edit', function(){
-        return view('user.profile-edit');
-    })->name('profile-edit');
-});
-/*activity*/
-Route::get('/activities', function(){
-        return view('user.activity');
-})->name('activity');
-// Login
 
-Route::get('/login', function(){
-        return view('user.login');
-})->name('login');
+Auth::routes();
 
-Route::get('/register', function(){
-        return view('user.register');
-})->name('register');
 //admin
 Route::group(['prefix' => 'cp-admin'], function(){
     Route::get('/', function(){
         return view('admin.home');
     });
 });
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');

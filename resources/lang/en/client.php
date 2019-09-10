@@ -24,7 +24,7 @@ return [
     'massage' => 'Massage',
     'send_to_admin' => 'Send to admin',
     'reading_book' => 'Your reading books',
-    'votes' => 'votes',
+    'votes' => 'voted by',
     'your_favorite_book' => 'Your favorite books',
     'send' => 'Send',
     'category' => 'Category',
@@ -57,5 +57,11 @@ return [
     'confirm_pass' => 'Enter confirm password...',
     'publisher' => 'publisher',
     'no_rate' => '0 Rate',
+    'you_are_voted' => 'You are voted',
+    'star_for_book' => 'star for this book',
+    'login_to_rate' => 'Please Login to rate for this book',
+    'edit' => 'edit',
+    'delete' => 'delete',
+    'change' => 'change',
 
 ];
