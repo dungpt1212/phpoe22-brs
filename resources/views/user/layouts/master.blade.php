@@ -31,5 +31,6 @@
     <!-- //Main wrapper -->
     @include('user.layouts.footer')
     <script src="{{ mix('js/custom.js') }}"></script>
+    @yield('customjs')
 </body>
 </html>
