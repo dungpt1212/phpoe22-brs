@@ -15,5 +15,7 @@ $factory->define(Book::class, function (Faker $faker) {
         'view' => 0,
         'publisher_id' => $faker->numberBetween($min = 1, $max = 5),
         'category_id' => $faker->numberBetween($min = 1, $max = 5),
+        'book_description' => $faker->realText($maxNbChars = 250 , $indexSize = 1),
+
     ];
 });
