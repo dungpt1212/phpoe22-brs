@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Category;
 use App\Models\Author;
 use App\Models\Publisher;
+use App\Models\Notification;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -65,6 +66,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\BookUser\BookUserRepositoryInterface::class,
             \App\Repositories\BookUser\BookUserRepository::class
         );
+
+        $this->app->singleton(
+            \App\Repositories\Notification\NotificationRepositoryInterface::class,
+            \App\Repositories\Notification\NotificationRepository::class
+        );
     }
 
     /**
@@ -82,6 +88,15 @@ class AppServiceProvider extends ServiceProvider
                'bookCategories' => $bookCategories,
                'authors' => $authors,
                'publishers' => $publishers,
+
+            ]);
+
+        });
+
+        View::composer('admin.layouts.header', function ($view) {
+            $notices = Notification::orderBy('created_at', 'DESC')->get();
+            $view->with([
+               'notices' => $notices,
 
             ]);
 

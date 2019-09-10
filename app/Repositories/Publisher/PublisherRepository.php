@@ -2,10 +2,10 @@
 namespace App\Repositories\Publisher;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Publisher\PublisherRepositoryInterface;
 
 class PublisherRepository extends BaseRepository implements PublisherRepositoryInterface
 {
-    //lấy model tương ứng
     public function getModel()
     {
         return \App\Models\Publisher::class;

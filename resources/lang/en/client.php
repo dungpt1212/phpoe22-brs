@@ -81,7 +81,7 @@ return [
     'login_to_require' => 'Please Login to send your require to admin to add new books',
     'update_success' => 'Update Successfully',
     'delete_success' => 'Delete Successfully',
-    'this_book_required' => 'You are require this book or error',
+    'this_book_required' => 'You are required this book or error',
     'you_are_required_book' => 'You are required the book ',
     'successfully' => ' successfully',
     'there' => ' There are',
@@ -94,5 +94,6 @@ return [
     'following' => 'Following',
     'your_following_list' => 'Your Followings List',
     'your_follower_list' => 'Your followers List',
+    'notfound' => 'Cannot find data',
 
 ];

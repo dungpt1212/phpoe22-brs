@@ -2,10 +2,10 @@
 namespace App\Repositories\Book;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Book\BookRepositoryInterface;
 
 class BookRepository extends BaseRepository implements BookRepositoryInterface
 {
-    //lấy model tương ứng
     public function getModel()
     {
         return \App\Models\Book::class;
@@ -25,4 +25,51 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
     {
         return $this->model->find($book)->authors->pluck('id')->toArray();
     }
+
+    public function getBookOrderById()
+    {
+        return $this->model
+            ->with('publisher', 'rates')
+            ->orderBy('id', 'DESC')
+            ->take(config('limitdata.new_updated_books'))
+            ->get();
+    }
+
+    public function getBookOrderByView()
+    {
+        return $this->model
+            ->with('publisher', 'rates')->orderBy('view', 'DESC')
+            ->take(config('limitdata.highest_viewed_books'))
+            ->get();
+    }
+
+    public function getBookPanigateByCategory($categoryId)
+    {
+        return $this->model
+            ->with('rates', 'publisher')
+            ->where('category_id', $categoryId)
+            ->paginate(config('limitdata.category'));
+
+    }
+
+    public function getBookPanigateByAuthor($bookAuthor)
+    {
+        return $this->model
+            ->with('rates', 'publisher')
+            ->whereIn('id', $bookAuthor)
+            ->paginate(config('limitdata.category'));
+    }
+
+    public function searchBookByTitle($keyword)
+    {
+        return $this->model
+            ->search($keyword)
+            ->paginate(config('limitdata.category'));
+    }
+
+    public function getFavoriteBook($attr = [])
+    {
+        return $this->model->whereIn('id', $attr)->get();
+    }
+
 }

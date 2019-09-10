@@ -3,6 +3,7 @@ use App\Models\Book;
 use App\Models\ReviewLike;
 use App\Models\User;
 use App\Models\UserActivity;
+use App\Models\Notification;
 
 
 if (!function_exists('avgRate')) {
@@ -76,6 +77,18 @@ if (!function_exists('avgRate')) {
         }else {
             $data = Book::findOrFail($id);
         }
+
+        return $data;
+    }
+
+    function getDataFromAdminNotification($notification)
+    {
+        $user = User::find($notification->notifiable_id);
+        $requireBook = json_decode($notification->data);
+        $data = [];
+        $data['user'] = $user->name;
+        $data['idRequire'] = $requireBook->id;
+        $data['nameBook'] = $requireBook->book_name;
 
         return $data;
     }
