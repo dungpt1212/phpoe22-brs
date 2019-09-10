@@ -20,7 +20,7 @@ class RequestNewbook extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    function getStatusAttribute($attribute)
+    public function getStatusAttribute($attribute)
     {
         return [
             '0' => trans('client.processing'),

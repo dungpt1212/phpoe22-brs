@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Role_User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -40,5 +42,15 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('user.login');
+    }
+
+    public function redirectTo()
+    {
+        $role_user = Role_User::where('user_id', '=', Auth::user()->id);
+        if($role_user->count() == 0){
+            return '/';
+        }else{
+            return '/cp-admin/dashboard';
+        }
     }
 }
