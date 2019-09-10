@@ -153,3 +153,10 @@ th.sorting {
 .product.product__style--3 .product__content .prize li {
     font-size: 10px;
 }
+li.author {
+    list-style: none;
+}
+label {
+    font-weight: bold;
+    font-size: 20px;
+}

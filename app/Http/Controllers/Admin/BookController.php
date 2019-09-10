@@ -7,7 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Publisher;
 use App\Models\Category;
+use App\Models\Author;
+use App\Models\AuthorBook;
 use App\Http\Requests\BookRequest;
+use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class BookController extends Controller
 {
     /**
@@ -18,7 +25,7 @@ class BookController extends Controller
     public function index()
     {
         $book = new Book();
-        $book = Book::all()->paginate(trans('admin.10records'));
+        $book = Book::all();
 
         return view('admin.book.index', compact('book'));
     }
@@ -30,10 +37,11 @@ class BookController extends Controller
      */
     public function create()
     {
+        $authors = Author::all();
         $publishers = Publisher::all();
         $categories = Category::all();
-
-        return view('admin.book.create', compact('publishers'), compact('categories'));
+        $result = compact('publishers', 'categories', 'authors');
+        return view('admin.book.create', $result);
     }
 
     /**
@@ -45,19 +53,16 @@ class BookController extends Controller
     public function store(BookRequest $request)
     {
         $book = new Book();
-        $book->title = $request->title;
-        $book->book_content = $request->book_content;
-        if ($request->file('image')){
-            $file_upload = $request->file('image');
-            $file_upload = $file_upload->move(public_path('images'), $file_upload->getClientOriginalName());
-            $fileName = pathinfo($file_upload);
-            $book->image = $fileName['basename'];
+        $data = $request->all();
+        $response = getDataFromRequest($data, $book);
+        $response = Book::create($book->getAttributes());
+        $authors = $request->get('author');
+        foreach ($authors as $key) {
+            AuthorBook::firstOrCreate([
+                'book_id' => $response->id,
+                'author_id' => $key,
+            ]);
         }
-        $book->price = $request->price;
-        $book->number_page = $request->number_page;
-        $book->publisher_id = $request->publisher_id;
-        $book->category_id = $request->category_id;
-        $book->save();
 
         return redirect()->route('book.create')->with('status', trans('admin.add_success'));
     }
@@ -86,8 +91,13 @@ class BookController extends Controller
         $data = Book::findOrFail($book);
         $publishers = Publisher::all();
         $categories = Category::all();
+        $book_publisher = $data->publisher->id;
+        $book_category = $data->category->id;
+        $authors = Author::all();
+        $book_authors = $data->authors->pluck('id')->toArray();
+        $result = compact('data', 'categories', 'publishers', 'book_publisher', 'book_category', 'book_authors', 'authors');
 
-        return view('admin.book.edit', compact('data', 'categories', 'publishers'));
+        return view('admin.book.edit', $result);
     }
 
     /**
@@ -97,21 +107,20 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $book)
+    public function update(UpdateBookRequest $request, $id)
     {
-        $data = Book::findOrFail($book);
-        $data->title = $request->title;
-        $data->book_content = $request->book_content;
-        if ($request->file('image')) {
-            $file_upload = $request->file('image');
-            $file_upload = $file_upload->move(public_path('images'), $file_upload->getClientOriginalName());
-            $fileName = pathinfo($file_upload);
-            $data->image = $fileName['basename'];
+        $book = Book::findOrFail($id);
+        $data = $request->all();
+        $response = getDataFromRequest($data, $book);
+        $updated = $book->update($response->getAttributes());
+        $book->authors()->detach();
+        $authors = $request->get('author');
+        foreach ($authors as $key) {
+            AuthorBook::firstOrCreate([
+                'book_id' => $response->id,
+                'author_id' => $key,
+            ]);
         }
-        $data->number_page = $request->number_page;
-        $data->publisher_id = $request->publisher_id;
-        $data->category_id = $request->category_id;
-        $data->update();
 
         return redirect()->route('book.index')->with('status', trans('admin.update_success'));
     }

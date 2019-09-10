@@ -1,5 +1,5 @@
 <header class="app-header">
-    <a class="app-header__logo" href="#">{{ trans('admin.admin') }}</a>
+    <a class="app-header__logo" href="{{ route('book.index') }}">{{ trans('admin.admin') }}</a>
     <!-- Sidebar toggle button-->
     <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"></a>
     <!-- Navbar Right Menu-->

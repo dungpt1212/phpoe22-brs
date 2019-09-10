@@ -22,22 +22,39 @@
                         <div class="form-group">
                             <label for="title" class="col-lg-12 control-label">{{ trans('admin.book') }}</label>
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.title') }}</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="{{ trans('admin.title') }}">
                             </div>
                             <br>
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.author') }}</label>
+                                @foreach ($authors as $author)
+                                <ul>
+                                    <li class="author">
+                                        <input type="checkbox" name="author[]" value="{{ $author->id }}">
+                                        {{ $author->author_name }}
+                                    </li>
+                                </ul>
+                                @endforeach
+                            </div>
+                            <br>
+                            <div class="col-lg-12">
+                                <label>{{ trans('admin.book_content') }}</label>
                                 <textarea class="form-control" id="editor1" name="book_content" placeholder="{{ trans('admin.book_content') }}"></textarea>
                             </div>
                             <br>
                             <div class="col-lg-12">
-                                <input type="file" class="form-control" name="image" id="image" placeholder="{{ trans('admin.image') }}">
+                                <label>{{ trans('admin.image') }}</label>
+                                <input type="file" class="form-control-file" name="image" id="image" placeholder="{{ trans('admin.image') }}">
                             </div>
                             <br>
                             <div class="col-lg-3">
+                                <label>{{ trans('admin.number_page') }}</label>
                                 <input type="text" class="form-control" name="number_page" id="number_page" placeholder="{{ trans('admin.number_page') }}">
                             </div>
                             <br>
                             <div class="col-lg-3">
+                                <label>{{ trans('admin.publisher') }}</label>
                                 <select class="form-control" name="publisher_id">
                                     <option>{{ trans('admin.choose_a_publisher') }}</option>
                                     @foreach ($publishers as $data)
@@ -48,6 +65,7 @@
                             </div>
                             <br>
                             <div class="col-lg-3">
+                                <label>{{ trans('admin.category') }}</label>
                                 <select class="form-control" name="category_id">
                                     <option>{{ trans('admin.choose_a_category') }}</option>
                                     @foreach ($categories as $data)
@@ -58,6 +76,7 @@
                             </div>
                             <br>
                             <div class="col-lg-3">
+                                <label>{{ trans('admin.price') }}</label>
                                 <input type="text" class="form-control" name="price" id="price" placeholder="{{ trans('admin.price') }}">
                             </div>
                             <br>

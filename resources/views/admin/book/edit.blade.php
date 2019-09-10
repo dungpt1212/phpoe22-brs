@@ -22,44 +22,80 @@
                     <fieldset>
                         <div class="form-group">
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.title') }}</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="{{ trans('admin.title')}}" value="{{ $data->title }}">
                             </div>
                             <br>
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.author') }}</label>
+                                @foreach ($authors as $author)
+                                    @if (in_array($author->id, $book_authors))
+                                        <ul>
+                                            <li class="author">
+                                                <input type="checkbox" name="author[]" value="{{ $author->id }}" checked>{{ $author->author_name }}
+                                            </li>
+                                        </ul>
+                                    @else
+                                        <ul>
+                                            <li class="author">
+                                                <input type="checkbox" name="author[]" value="{{ $author->id }}">{{ $author->author_name }}
+                                            </li>
+                                        </ul>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <br>
+                            <div class="col-lg-12">
+                                <label>{{ trans('admin.book_content') }}</label>
                                 <textarea class="form-control" id="editor1" name="book_content" placeholder="{{ trans('admin.book_content')}}">{{ $data->book_content }}</textarea>
                             </div>
                             <br>
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.image') }}</label>
                                 @if ($data->image)
                                     <img class="edit_img" src="{{ asset('images/' . $data->image) }}" />
+                                    <br>
                                 @endif
-                                <input type="file" class="form-control" id="image" name="image">
+                                <input type="file" class="form-control-file" id="image" name="image">
                             </div>
                             <br>
-                                {{-- Error  --}}
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.number_page') }}</label>
                                 <input type="text" class="form-control" id="number_page" name="number_page" placeholder="{{ trans('admin.number_page') }}" value="{{ $data->number_page }}">
                             </div>
                             <br>
                             <div class="col-lg-3">
+                                <label>{{ trans('admin.publisher') }}</label>
                                 <select class="form-control" name="publisher_id">
                                     @foreach ($publishers as $publisher)
-                                        <option value="{{ $publisher->id }}">{{ $publisher->publisher_name }}
-                                        </option>
+                                        @if ($publisher->id == $book_publisher)
+                                            <option value="{{ $publisher->id }}" selected>{{ $publisher->publisher_name }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $publisher->id }}">{{ $publisher->publisher_name }}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <br>
                             <div class="col-lg-3">
+                                <label>{{ trans('admin.category') }}</label>
                                 <select class="form-control" name="category_id">
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->category_name }}
-                                        </option>
+                                        @if ($category->id == $book_category)
+                                            <option value="{{ $category->id }}" selected>{{ $category->category_name }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $category->id }}">{{ $category->category_name }}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <br>
                             <div class="col-lg-12">
+                                <label>{{ trans('admin.price') }}</label>
                                 <input type="text" class="form-control" id="price" name="price" placeholder="{{ trans('admin.price') }}" value="{{ $data->price }}">
                             </div>
                         </div>
