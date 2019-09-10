@@ -30,8 +30,6 @@ mix.js('resources/js/app.js', 'public/js')
         'public/assets/lib/lib-admin/js/plugins/chart.js',
         'public/assets/lib/lib-admin/js/something.js',
 
-
-
     ], 'public/js/custom.js')
     .sass('resources/sass/app.scss', 'public/css');
 

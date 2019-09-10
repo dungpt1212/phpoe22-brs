@@ -20,7 +20,7 @@ class RequestNewbook extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    function getStatusAttribute($attribute)
+   /* function getStatusAttribute($attribute)
     {
         return [
             '0' => trans('client.processing'),
@@ -31,5 +31,5 @@ class RequestNewbook extends Model
     public function setAuthorAttribute($value)
     {
         $this->attributes['author'] = ucwords($value);
-    }
+    }*/
 }

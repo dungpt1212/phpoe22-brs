@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ActivityTableSeeder::class,
             CategoryTableSeeder::class,
             RequestNewBookTableSeeder::class,
+            PermissionTableSeeder::class,
         ]);
     }
 }

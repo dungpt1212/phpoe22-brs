@@ -20,7 +20,7 @@
         </main>
         <script src="{{ asset(mix('js/custom.js')) }}"></script>
         <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('ckeditor_4.12.1_standard/ckeditor/ckeditor.js') }}"></script>
+        <script src="{{ asset('assets/ckeditor-dev/ckeditor.js') }}"></script>
         <script> CKEDITOR.replace('editor1'); </script>
     </body>
 </html>
