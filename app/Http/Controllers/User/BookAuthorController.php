@@ -4,19 +4,35 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Author;
-use App\Models\Book;
-use App\Models\AuthorBook;
+use App\Repositories\Book\BookRepositoryInterface;
+use App\Repositories\Author\AuthorRepositoryInterface;
+use App\Repositories\AuthorBook\AuthorBookRepositoryInterface;
 
 class BookAuthorController extends Controller
 {
+    protected $bookRepo;
+    protected $authorRepo;
+    protected $authorBookRepo;
+
+    public function __construct(
+        BookRepositoryInterface $bookRepo,
+        AuthorRepositoryInterface $authorRepo,
+        AuthorBookRepositoryInterface $authorBookRepo
+    )
+    {
+        $this->bookRepo = $bookRepo;
+        $this->authorRepo = $authorRepo;
+        $this->authorBookRepo = $authorBookRepo;
+    }
+
     public function index($id)
     {
-        $author = Author::findOrFail($id);
-        $bookAuthor = AuthorBook::where('author_id', '=', $id)->pluck('book_id');
-        $books = Book::with('rates', 'publisher')
-            ->whereIn('id', $bookAuthor)
-            ->paginate(config('limitdata.category'));
+        $author = $this->authorRepo->find($id);
+        if($author == false){
+            return view('errors.notfound');
+        }
+        $bookAuthor = $this->authorBookRepo->getAuthorBook($id);
+        $books = $this->bookRepo->getBookPanigateByAuthor($bookAuthor);
 
         return view('user.book-author', compact('books', 'author'));
     }

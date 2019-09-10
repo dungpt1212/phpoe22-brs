@@ -89,7 +89,35 @@ Auth::routes();
 Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'cp-admin'], function () {
         Route::resource('book', 'BookController');
+        Route::resource('user', 'UserController');
+        Route::resource('role', 'RoleController');
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     });
+
 });
+
+use Illuminate\Http\Request;
+Use App\Models\User;
+Use App\Models\Book;
+Use App\Models\Rate;
+use Illuminate\Database\Connection;
+use Mockery as m;
+use App\Http\Controllers\User\RequireBookController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\RedirectResponse;
+
+Route::get('/unit-test', function(){
+    dd(RedirectResponse::class);
+
+});
+
+Route::get('/repository', function(){
+
+
+});
+
+
 

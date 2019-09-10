@@ -5,4 +5,5 @@ return [
     'highest_viewed_books' => "6",
     'category' => "8",
     'records' => '10',
+
 ];

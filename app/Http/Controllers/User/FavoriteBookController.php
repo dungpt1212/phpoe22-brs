@@ -9,23 +9,33 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\BookUser;
 use App\Models\UserActivity;
+use App\Repositories\BookUser\BookUserRepositoryInterface;
+use App\Repositories\Book\BookRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 
 class FavoriteBookController extends Controller
 {
+    protected $bookRepo;
+    protected $bookUserRepo;
+    protected $userRepo;
 
-    public function __construct()
+    public function __construct
+    (
+        BookRepositoryInterface $bookRepo,
+        BookUserRepositoryInterface $bookUserRepo,
+        UserRepositoryInterface $userRepo
+    )
     {
+        $this->bookRepo = $bookRepo;
+        $this->bookUserRepo = $bookUserRepo;
+        $this->userRepo = $userRepo;
         $this->middleware('auth');
     }
 
     public function index()
     {
-        $booksFavoritedByUser = BookUser::where([
-            [ 'favorite', '=', 1 ],
-            [ 'user_id', '=', Auth::user()->id ],
-
-        ])->pluck('book_id');
-        $books = Book::whereIn('id', $booksFavoritedByUser)->get();
+        $booksFavoritedByUser = $this->bookUserRepo->getFavoriteBookByUser($this->userRepo->getAuthId());
+        $books = $this->bookRepo->getFavoriteBook($booksFavoritedByUser);
 
         return view('user.book-favorite', compact('books'));
     }

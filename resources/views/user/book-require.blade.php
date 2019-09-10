@@ -47,7 +47,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="submit" class="btn btn-sm btn-primary" value="{{ trans('client.send_to_admin') }}" name="btn_capnhat"></td>
+                                <td><input type="submit" class="btn btn-sm btn-primary" value="{{ trans('client.send_to_admin') }}"></td>
                                 <td></td>
                             </tr>
                          </tbody>

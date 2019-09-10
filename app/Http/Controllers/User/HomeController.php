@@ -4,19 +4,22 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Book;
+use App\Repositories\Book\BookRepositoryInterface;
 
 class HomeController extends Controller
 {
+    protected $bookRepo;
+
+    public function __construct(BookRepositoryInterface $bookRepo)
+    {
+        $this->bookRepo = $bookRepo;
+    }
+
     public function index()
     {
-        $newUpdatedBooks = Book::with('publisher', 'rates')->orderBy('id', 'DESC')
-            ->take(config('limitdata.new_updated_books'))
-            ->get();
+        $newUpdatedBooks = $this->bookRepo->getBookOrderById();
 
-        $highestViewedBooks = Book::with('publisher', 'rates')->orderBy('view', 'DESC')
-            ->take(config('limitdata.highest_viewed_books'))
-            ->get();
+        $highestViewedBooks = $this->bookRepo->getBookOrderByView();
 
         return view('user.home', compact('newUpdatedBooks', 'highestViewedBooks'));
     }

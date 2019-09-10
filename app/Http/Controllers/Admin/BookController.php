@@ -22,6 +22,15 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:book-view-list', ['only' => ['index']]);
+        $this->middleware('permission:book-create',   ['only' => ['create', 'store']]);
+        $this->middleware('permission:book-update',   ['only' => ['edit', 'update', 'show']]);
+        $this->middleware('permission:book-delete',   ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $book = new Book();
