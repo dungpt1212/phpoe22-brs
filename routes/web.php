@@ -89,7 +89,42 @@ Auth::routes();
 Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'cp-admin'], function () {
         Route::resource('book', 'BookController');
+        Route::resource('user', 'UserController');
+        Route::resource('role', 'RoleController');
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     });
+
 });
+
+use Illuminate\Http\Request;
+Use App\Models\User;
+Use App\Models\Book;
+Use App\Models\Rate;
+use Illuminate\Database\Connection;
+use Mockery as m;
+use App\Http\Controllers\User\RequireBookController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+Route::get('/unit-test', function(){
+    $m = new User();
+    $r = new Book();
+    $relation = $m->books();
+    dd($relation->getRelationName());
+
+});
+
+Route::get('/repository', function(){
+    $data = Rate::create([
+        'book_id' => '1',
+        'user_id' => '2',
+        'stars' => '3',
+    ]);
+    dd($data);
+
+});
+
+
 

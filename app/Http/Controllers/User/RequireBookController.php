@@ -3,29 +3,38 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\RequestNewbook;
-use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\RequireBookFormRequest;
+use App\Http\Controllers\Controller;
 use App\Events\CreateRequireAddNewBookEvent;
-use Auth;
+use App\Repositories\RequestNewBook\RequestNewBookRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 
 class RequireBookController extends Controller
 {
+    protected $requireBookRepo;
+    protected $userRepo;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
+    public function __construct(
+        RequestNewBookRepositoryInterface $requireBookRepo,
+        UserRepositoryInterface $userRepo
+    )
     {
-        $this->middleware('auth', ['except' => ['create']]);
+        $this->requireBookRepo = $requireBookRepo;
+        $this->userRepo = $userRepo;
+        $this->middleware('auth');
     }
 
     public function index()
     {
-        $requests = User::findOrfail(Auth::user()->id)->requestNewBooks;
+        $authId = $this->userRepo->getAuthId();
+        $requests = $this->requireBookRepo->getRequireBook($authId);
 
         return view('user.book-require-list', compact('requests'));
     }
@@ -48,18 +57,12 @@ class RequireBookController extends Controller
      */
     public function store(RequireBookFormRequest $request)
     {
-        $requestNewbook = RequestNewbook::firstOrCreate([
-            'book_name' => $request->get('book_name'),
-            'author' => $request->get('author'),
-            'request_content' => $request->get('request_content'),
-            'user_id' => Auth::user()->id,
-
-        ]);
+        $data = $request->all();
+        $data['user_id'] = $this->requireBookRepo->getAuthId();
+        $requestNewbook = $this->requireBookRepo->create($data);
 
         if($requestNewbook->wasRecentlyCreated == true) {
             event(new CreateRequireAddNewBookEvent($requestNewbook));
-        }else{
-            return redirect()->back()->with('status', trans('client.this_book_required'));
         }
 
         return redirect(route('require.index'))->with('status', trans('client.add_success'));
@@ -84,10 +87,15 @@ class RequireBookController extends Controller
      */
     public function edit($id)
     {
-        $require = RequestNewbook::findOrFail($id);
-        if($require->status == trans('client.resolved')){
-            return abort(404);
+        $require = $this->requireBookRepo->find($id);
+        if($require == false){
+            return view('errors.notfound');
         }
+
+        if(($require->status == trans('client.resolved')) || ($require->user_id != $this->requireBookRepo->getAuthId())) {
+            return view('errors.notfound');
+        }
+
         return view('user.book-require-update', compact('require'));
     }
 
@@ -100,10 +108,12 @@ class RequireBookController extends Controller
      */
     public function update(RequireBookFormRequest $request, $id)
     {
-        $require = RequestNewbook::findOrFail($id);
-        $require->fill($request->all());
-        $require->user_id = Auth::user()->id;
-        $require->save();
+        $require = $this->requireBookRepo->find($id);
+        if($require == false){
+            return view('errors.notfound');
+        }
+        $data = $request->all();
+        $require = $this->requireBookRepo->update($id, $data);
 
         return redirect(route('require.index'))->with('status', trans('client.update_success'));
     }
@@ -116,8 +126,16 @@ class RequireBookController extends Controller
      */
     public function destroy($id)
     {
-        $require = RequestNewbook::findOrFail($id);
-        $require->delete();
+        $require = $this->requireBookRepo->find($id);
+        if($require == false){
+            return view('errors.notfound');
+        }
+
+        if(($require->status == trans('client.resolved')) || ($require->user_id != $this->requireBookRepo->getAuthId())) {
+            return view('errors.notfound');
+        }
+
+        $this->requireBookRepo->delete($id);
 
         return redirect(route('require.index'))->with('status', trans('client.delete_success'));
     }
