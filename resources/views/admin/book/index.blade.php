@@ -7,24 +7,6 @@
             <div class="tile-body">
                 <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="sampleTable_length">
-                                <label> {{ trans('admin.show') }} <select name="sampleTable_length" aria-controls="sampleTable" class="form-control form-control-sm">
-                                    <option value="10">{{ trans('admin.n10') }}</option>
-                                    <option value="25">{{ trans('admin.n15') }}</option>
-                                    <option value="50">{{ trans('admin.n25') }}</option>
-                                    <option value="100">{{ trans('admin.n100') }}</option>
-                                </select> {{ trans('admin.entries') }}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div id="sampleTable_filter" class="dataTables_filter">
-                                <label>{{ trans('admin.search') }}<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                 <thead>

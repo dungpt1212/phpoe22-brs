@@ -91,7 +91,6 @@ if (!function_exists('getDataFromRequest')) {
             $fileName = pathinfo($file_upload);
             $data['image'] = $fileName['basename'];
         }
-
         return $data;
     }
 }

@@ -78,4 +78,5 @@ return [
         'category_id.required' => 'Category is required',
     ],
     '10records' => '10',
+    'author' => 'Author',
 ];
