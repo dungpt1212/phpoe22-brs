@@ -2,7 +2,7 @@
 @section('title', trans('client.category'))
 @section('content')
 <div class="container top">
-    <h3 class="text-center mb-4">{{ $category->category_name }} ({{ $category->books->count() }})</h3>
+    <h3 class="text-center mb-4">{{ $publisher->publisher_name }} ({{ $publisher->books->count() }})</h3>
     <div class="row">
         @foreach($books as $book)
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-5 detail">
