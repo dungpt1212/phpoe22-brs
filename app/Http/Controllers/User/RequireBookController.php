@@ -92,7 +92,7 @@ class RequireBookController extends Controller
             return view('errors.notfound');
         }
 
-        if(($require->status == trans('client.resolved')) || ($require->user_id != $this->userRepo->getAuthId())) {
+        if(($require->status == \App\Enums\Status::Resolve) || ($require->user_id != $this->userRepo->getAuthId())) {
             return view('errors.notfound');
         }
 
@@ -131,7 +131,7 @@ class RequireBookController extends Controller
             return view('errors.notfound');
         }
 
-        if(($require->status == trans('client.resolved')) || ($require->user_id != $this->userRepo->getAuthId())) {
+        if(($require->status ==\App\Enums\Status::Resolve) || ($require->user_id != $this->userRepo->getAuthId())) {
             return view('errors.notfound');
         }
 

@@ -30,12 +30,18 @@ class BookController extends Controller
             AuthorRepositoryInterface $authorRepo,
             CategoryRepositoryInterface $cateRepo,
             PublisherRepositoryInterface $pubRepo
+
         )
     {
         $this->bookRepo = $bookRepo;
         $this->authorRepo = $authorRepo;
         $this->cateRepo = $cateRepo;
         $this->pubRepo = $pubRepo;
+        $this->middleware('auth');
+        $this->middleware('permission:book-view-list', ['only' => ['index']]);
+        $this->middleware('permission:book-create',   ['only' => ['create', 'store']]);
+        $this->middleware('permission:book-update',   ['only' => ['edit', 'update', 'show']]);
+        $this->middleware('permission:book-delete',   ['only' => ['destroy']]);
     }
 
     public function index()
@@ -150,11 +156,11 @@ class BookController extends Controller
      */
     public function destroy($book)
     {
-        $book = $this->bookRepo->find($book);
-        if($book == false){
+        $data = $this->bookRepo->find($book);
+        if($data == false){
             return view('errors.notfound');
         }
-        $book = $this->bookRepo->delete($book);
+        $this->bookRepo->delete($book);
 
         return redirect()->route('book.index')->with('status', trans('admin.delete_success'));
     }

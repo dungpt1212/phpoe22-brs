@@ -1,5 +1,5 @@
 $(document).ready(function($) {
-    $('.currency-trigger').click(function(event) {
+    $('.logout').click(function(event) {
         event.preventDefault();
         document.getElementById('logout-form').submit();
     });

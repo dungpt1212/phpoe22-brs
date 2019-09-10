@@ -90,5 +90,11 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'cp-admin'], function () {
         Route::resource('book', 'BookController');
         Route::resource('editbook','RequestBookController');
+        Route::resource('book', 'BookController');
+        Route::resource('user', 'UserController');
+        Route::resource('role', 'RoleController');
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     });
+
 });
+
