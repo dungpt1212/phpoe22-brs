@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function activities()
     {
-        return $this->belongsToMany(Activity::class, 'user_activities', 'user_id', 'activity_id')->withPivot('type_id');
+        return $this->belongsToMany(Activity::class, 'user_activity', 'user_id', 'activity_id')->withPivot('type_id');
     }
 
     public function rates()
@@ -67,5 +67,15 @@ class User extends Authenticatable
     public function requestNewBooks()
     {
         return $this->hasMany(RequestNewbook::class);
+    }
+
+    public function reviewLikes()
+    {
+        return $this->hasMany(ReviewLike::class);
+    }
+
+    public function userFollows()
+    {
+        return $this->hasMany(UserFollow::class);
     }
 }

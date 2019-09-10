@@ -4,8 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Rate;
+use App\Traits\FullTextSearch;
+
 class Book extends Model
 {
+
+    use FullTextSearch;
+
     protected $table = 'books';
     protected $fillable = [
         'title',
@@ -18,6 +23,11 @@ class Book extends Model
         'category_id',
     ];
 
+    protected $searchable = [
+        'title',
+
+    ];
+
     public function authors()
     {
         return $this->belongsToMany(Author::class);
@@ -25,7 +35,7 @@ class Book extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('favorite');
     }
 
     public function reviews()
