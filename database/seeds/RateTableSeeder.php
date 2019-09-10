@@ -11,6 +11,6 @@ class RateTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\Rate::class, 10)->create();
+        factory(App\Models\Rate::class, 10)->create();
     }
 }

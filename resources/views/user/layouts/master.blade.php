@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicons -->
     <link rel="shortcut icon" href="assets/lib/images/favicon.ico">
     <link rel="apple-touch-icon" href="assets/lib/images/icon.png">
@@ -31,5 +32,6 @@
     <!-- //Main wrapper -->
     @include('user.layouts.footer')
     <script src="{{ mix('js/custom.js') }}"></script>
+    @yield('customjs')
 </body>
 </html>

@@ -11,6 +11,6 @@ class UserActivityTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\UserActivity::class, 10)->create();
+        factory(App\Models\UserActivity::class, 10)->create();
     }
 }
