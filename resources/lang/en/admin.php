@@ -64,4 +64,5 @@ return [
     'close' => 'Close',
     'resolve' => 'Resolve',
     'processing' => 'Processing',
+    'n50' => '50',
 ];

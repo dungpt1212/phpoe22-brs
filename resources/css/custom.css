@@ -156,3 +156,20 @@ label {
     height: 50px;
     border-radius: 50%;
 }
+th.sorting_asc {
+    width: 210px;
+}
+th.sorting_bsc {
+    width: 180px;
+}
+th.sorting {
+    width: 100px;
+}
+.book_img {
+    width: 160px;
+    height: 80px;
+}
+.edit_img {
+    width: 300px;
+    height: 400px
+}
