@@ -40,4 +40,17 @@ return [
     'n15' => '15',
     'n25' => '25',
     'n50' => '50',
+    'add_success' => 'Add book successfully!',
+    'update_success' => 'Update book successfully!',
+    'delete_success' => 'Delete book successfully!',
+    'validate' => [
+        'title_required' => 'A title is required',
+        'book_content.required' => 'Book content is required',
+        'image.requred' => 'Image is required',
+        'price.required' => 'Price is required',
+        'number_page.required' => 'Number page is required',
+        'publisher_id.required' => 'Publisher is required',
+        'category_id.required' => 'Category is required',
+    ],
+    '10records' => '10',
 ];
