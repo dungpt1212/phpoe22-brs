@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/lib-admin/css/main.css') }}">
         <!-- Font-icon css-->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/lib-admin/font-awsome.css') }}">
+        <link rel="stylesheet" href="{{ asset(mix('css/custom.css')) }}">
     </head>
     <body class="app sidebar-mini rtl">
         @include('admin.layouts.header')
@@ -17,5 +18,7 @@
             @yield('main')
         </main>
         <script src="{{ asset(mix('js/custom.js')) }}"></script>
+        <script src="{{ asset('ckeditor_4.12.1_standard/ckeditor/ckeditor.js') }}"></script>
+        <script> CKEDITOR.replace('editor1'); </script>
     </body>
 </html>

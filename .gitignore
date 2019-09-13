@@ -14,3 +14,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/public/ckeditor_4.12.1_standard/
+/public/images/

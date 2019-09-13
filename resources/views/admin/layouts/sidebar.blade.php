@@ -16,16 +16,16 @@
             <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">{{ trans('admin.manage_book') }}</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
                 <li>
-                    <a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i>{{ trans('admin.list') }}</a>
+                    <a class="treeview-item" href="{{ route('book.index') }}"><i class="icon fa fa-circle-o"></i>{{ trans('admin.list') }}</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i>{{ trans('admin.create') }}</a>
+                    <a class="treeview-item" href="{{ route('book.create') }}"><i class="icon fa fa-circle-o"></i>{{ trans('admin.create') }}</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> {{ trans('admin.update') }}</a>
+                    <a class="treeview-item" href="#" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> {{ trans('admin.update') }}</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> {{ trans('admin.require_newbook') }}</a>
+                    <a class="treeview-item" href="" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> {{ trans('admin.require_newbook') }}</a>
                 </li>
             </ul>
         </li>

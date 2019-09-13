@@ -86,12 +86,10 @@ Route::group(['namespace' => 'User'], function(){
 Auth::routes();
 
 //admin
-Route::group(['prefix' => 'cp-admin'], function(){
-    Route::get('/', function(){
-        return view('admin.home');
+Route::group(['namespace' => 'Admin'], function () {
+    Route::group(['prefix' => 'cp-admin'], function () {
+        Route::resource('book', 'BookController');
+
     });
 });
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');

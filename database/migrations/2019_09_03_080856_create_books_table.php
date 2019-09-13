@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->text('image');
             $table->integer('price');
             $table->integer('number_page');
-            $table->integer('view');
+            $table->integer('view')->default(0);
             $table->integer('publisher_id');
             $table->integer('category_id');
             $table->timestamps();
