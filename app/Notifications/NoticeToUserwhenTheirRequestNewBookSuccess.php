@@ -7,8 +7,9 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\RequestNewbook;
+use Auth;
 
-class NoticeForAdminEvent extends Notification implements ShouldQueue
+class NoticeToUserwhenTheirRequestNewBookSuccess extends Notification
 {
     use Queueable;
 
@@ -44,9 +45,14 @@ class NoticeForAdminEvent extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->
+            ->from('dungdauda097@gmail.com', 'Book Store')
+            ->subject('Request add New Book')
             ->view(
-                'user.email.create-new-require-success', ['requireBook' => $this->requireBook]
+                'email.send-to-user-when-their-request-book-success',
+                [
+                    'sender' => Auth::user(),
+                    'requireBook' => $this->requireBook,
+                ]
             );
     }
 

@@ -95,10 +95,10 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::resource('role', 'RoleController');
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
         Route::get('/notification/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('notification.detail');
+        Route::get('/notification/all', 'NotificationController@showAll')->name('notification.all');
     });
 
 });
 
 Route::get('testPusher', 'PusherController@index');
 Route::get('filePusher', 'PusherController@filePusher');
-

@@ -29,9 +29,9 @@ class SendMailWhenRequireSuccessfulListner implements ShouldQueue
     {
         $email = $event->require->user->email;
         $require = $event->require->toArray();
-        Mail::send('user.email.create-new-require-success', $require, function ($message) use($require, $email) {
+        Mail::send('email.test', $require, function ($message) use($require, $email) {
             $message->from('dungdauda097@gmail', 'BookOnline');
-            $message->to($email);
+            $message->to('phamtrungdung1212@gmail.com');
             $message->subject(trans('client.you_are_required_book').'"'.$require["book_name"].'"'.trans('client.successfully'));
         });
     }

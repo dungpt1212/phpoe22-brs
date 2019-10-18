@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\RequestNewbook;
+use Auth;
 
 class NoticeToAdminWhenUserSendNewRequestBook extends Notification
 {
@@ -32,7 +33,7 @@ class NoticeToAdminWhenUserSendNewRequestBook extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -44,9 +45,15 @@ class NoticeToAdminWhenUserSendNewRequestBook extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->from('dungdauda097@gmail.com', 'Book Store')
+            ->subject('Request add New Book')
+            ->view(
+                'email.send-to-admin-when-user-create-request-book',
+                [
+                    'sender' => Auth::user(),
+                    'requireBook' => $this->requireBook,
+                ]
+            );
     }
 
     /**
@@ -57,6 +64,8 @@ class NoticeToAdminWhenUserSendNewRequestBook extends Notification
      */
     public function toArray($notifiable)
     {
-        return $this->requireBook->toArray();
+        $data = $this->requireBook->toArray();
+        $data['sender'] = Auth::user()->id;
+        return $data;
     }
 }

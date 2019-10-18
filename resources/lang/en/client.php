@@ -95,5 +95,7 @@ return [
     'your_following_list' => 'Your Followings List',
     'your_follower_list' => 'Your followers List',
     'notfound' => 'Cannot find data',
+    'you_have' => 'You have',
+    'new_notice' => 'new notifications',
 
 ];

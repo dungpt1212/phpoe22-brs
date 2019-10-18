@@ -48,6 +48,46 @@
                     <li class="wishlist" title="{{ trans('client.your_favorite') }}"><a href="{{ route('book-favorite') }}"></a></li>
                 </li>
                 <li class="history" title="{{ trans('client.history_activity') }}"><a class="fa fa-history mr-4" href="{{ route('activity') }}"></a></li>
+                <li class="history" title="{{ trans('notification') }}">
+                    <a class="fa fa-bell-o bell_notice" href="javascript:void(0)"></a>
+                    <span class="badge badge-danger mr-4">2</span>
+                </li>
+                <div class="notice" id="notice">
+                    <p class="text-center"><b><i>{{ trans('client.you_have') }} 4 {{ trans('client.new_notice') }}</i></b></p>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action read_notice">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x icon_notice"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>Your request add new book 'co be quang khan do' was successful
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x icon_notice"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>Your request add new book 'co be quang khan do' was successful
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action read_notice">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x icon_notice"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>Your request add new book 'co be quang khan do' was successful
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x icon_notice"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>Your request add new book 'co be quang khan do' was successful
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x icon_notice"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>Your request add new book 'co be quang khan do' was successful
+                        </a>
+                    </div>
+                    <p class="mt-3 mb-3 text-center"> <a href="#" >View all notifications</a></p>
+                </div>
             </li>
             @if (Auth::check())
                 <li class="setting__bar__icon" title="{{ trans('client.manage_profile') }}"><a class="setting__active" href="#"></a>
