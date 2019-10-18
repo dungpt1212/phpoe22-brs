@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Events\NoticeForAdminEvent;
+use Session;
 
 class PusherController extends Controller
 {
@@ -18,4 +19,17 @@ class PusherController extends Controller
 
         return "Message has been sent.";
     }
+
+    public function testToken()
+    {
+        return view('test-token');
+    }
+
+    /*public function sendToken($token)
+    {
+        if(Session::token() == $token){
+            return 'true';
+        }return 'false';
+
+    }*/
 }

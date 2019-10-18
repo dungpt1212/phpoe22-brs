@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Author;
 use App\Models\Publisher;
 use App\Models\Notification;
+use Auth;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -68,8 +70,13 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
-            \App\Repositories\Notification\NotificationRepositoryInterface::class,
-            \App\Repositories\Notification\NotificationRepository::class
+            \App\Repositories\nNotification\NotificationRepositoryInterface::class,
+            \App\Repositories\nNotification\NotificationRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\RoleUser\RoleUserRepositoryInterface::class,
+            \App\Repositories\RoleUser\RoleUserRepository::class
         );
     }
 
@@ -93,13 +100,14 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        View::composer('admin.layouts.header', function ($view) {
-            $notices = Notification::orderBy('created_at', 'DESC')->get();
-            $view->with([
-               'notices' => $notices,
+        View::composer(['admin.layouts.header', 'user.layouts.menu'], function ($view) {
+            if (Auth::check()){
+                $notifications = Auth::user()->notifications->take(config('limitdata.notice'));
+                $view->with([
+                   'notifications' => $notifications,
 
-            ]);
-
+                ]);
+            }
         });
 
     }

@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "lib": "https://github.com/dungpt1212/bower_prj1_suntraining.git",
-    "ckeditor-dev": "^4.12.1"
+    "ckeditor-dev": "^4.12.1",
+    "chart.js": "^2.8.0"
   }
 }
