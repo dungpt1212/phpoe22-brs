@@ -7,14 +7,22 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\RequireBookFormRequest;
 use App\Http\Controllers\Controller;
 use App\Events\CreateRequireAddNewBookEvent;
+use App\Events\SendMailWhenRequestNewBookSuccessEvent;
+use App\Events\RealTimeNoticeAdminNewRequestBook;
+use App\Notifications\NoticeToAdminWhenUserSendNewRequestBook;
+use App\Notifications\NoticeToUserwhenTheirRequestNewBookSuccess;
+use App\Notifications\ScheduleNoticeForUserReadBook;
 use App\Repositories\RequestNewBook\RequestNewBookRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
-use App\Notifications\NoticeToAdminWhenUserSendNewRequestBook;
+use App\Repositories\RoleUser\RoleUserRepositoryInterface;
+use Auth;
+
 
 class RequireBookController extends Controller
 {
     protected $requireBookRepo;
     protected $userRepo;
+    protected $roleUserRepo;
 
     /**
      * Display a listing of the resource.
@@ -24,11 +32,13 @@ class RequireBookController extends Controller
 
     public function __construct(
         RequestNewBookRepositoryInterface $requireBookRepo,
-        UserRepositoryInterface $userRepo
+        UserRepositoryInterface $userRepo,
+        RoleUserRepositoryInterface $roleUserRepo
     )
     {
         $this->requireBookRepo = $requireBookRepo;
         $this->userRepo = $userRepo;
+        $this->roleUserRepo = $roleUserRepo;
         $this->middleware('auth');
     }
 
@@ -61,8 +71,25 @@ class RequireBookController extends Controller
         $data = $request->all();
         $data['user_id'] = $this->userRepo->getAuthId();
         $requestNewbook = $this->requireBookRepo->create($data);
-        $user = $this->userRepo->find($this->userRepo->getAuthId());
-        $user->notify(new NoticeToAdminWhenUserSendNewRequestBook($requestNewbook));
+
+        $admins = $this->roleUserRepo->getUserAsAdmin();
+        $listAdminsToSendNotice = $this->userRepo->getListAdminsToSendNotice($admins);
+
+        if ($requestNewbook->wasRecentlyCreated == true){
+            \Notification::send($listAdminsToSendNotice, new NoticeToAdminWhenUserSendNewRequestBook($requestNewbook));
+
+            $dataRealTime = [];
+            $dataRealTime['sender'] = $this->userRepo->getAuth()->name;
+            $dataRealTime['bookName'] = $requestNewbook->book_name;
+            $dataRealTime['idRequire'] = $requestNewbook->id;
+            event(new RealTimeNoticeAdminNewRequestBook($dataRealTime));
+
+            $user = $this->userRepo->getAuth();
+            \Notification::send($user, new NoticeToUserwhenTheirRequestNewBookSuccess($requestNewbook));
+
+            event(new SendMailWhenRequestNewBookSuccessEvent($requestNewbook));
+
+        }
 
         return redirect(route('require.index'))->with('status', trans('client.add_success'));
     }

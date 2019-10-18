@@ -25,14 +25,17 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/js/logout.js',
         'resources/js/book_detail.js',
         'resources/js/notification.js',
+        'resources/js/realtime.js',
         'resources/js/requestbook.js',
         'resources/js/follow.js',
         'resources/js/dataTable.js',
+        'resources/js/chart_custom.js',
         'public/assets/lib/lib-admin/js/main.js',
         'public/assets/lib/lib-admin/js/plugins/pace.min.js',
-        'public/assets/lib/lib-admin/js/plugins/chart.js',
+        /*'public/assets/lib/lib-admin/js/plugins/chart.js',*/
         'public/assets/lib/lib-admin/js/something.js',
         'vendor/unisharp/laravel-ckeditor/ckeditor.js',
 
     ], 'public/js/custom.js')
+    .copy('public/assets/chart.js/dist/Chart.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');

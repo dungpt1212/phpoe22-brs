@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterNotificationsTableAddAdminReadCol extends Migration
+class AlterBookUserTableAddReadingCol extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterNotificationsTableAddAdminReadCol extends Migration
      */
     public function up()
     {
-        Schema::table('notifications', function (Blueprint $table) {
-            $table->text('admin_read')->nullable();
+        Schema::table('book_user', function (Blueprint $table) {
+            $table->integer('reading')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class AlterNotificationsTableAddAdminReadCol extends Migration
      */
     public function down()
     {
-        Schema::table('notifications', function (Blueprint $table) {
-            $table->dropColumn('admin_read');
+        Schema::table('book_user', function (Blueprint $table) {
+            $table->dropColumn('reading');
         });
     }
 }
