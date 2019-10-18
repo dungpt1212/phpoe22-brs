@@ -6,5 +6,6 @@ return [
     'category' => "8",
     'records' => '10',
     'list_records' => '5',
+    'notice' => '6',
 
 ];

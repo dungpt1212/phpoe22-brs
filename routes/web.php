@@ -51,9 +51,7 @@ Route::group(['namespace' => 'User'], function(){
 
         Route::get('/search', 'SearchController@index')->name('user-search');
 
-        Route::get('/reading', function(){
-            return view('user.book-reading');
-        })->name('book-reading');
+        Route::get('/reading-books', 'ReadingBookController@index')->name('reading-book');
 
         Route::resource('require', 'RequireBookController')->except([
             'show',
@@ -81,6 +79,11 @@ Route::group(['namespace' => 'User'], function(){
         Route::get('/add-follow', 'UserFollowOtherController@addFollow')->name('user-add-follow');
     });
 
+    Route::group(['prefix' => 'notification'], function(){
+        Route::get('/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('user-notification.detail');
+        Route::get('/all', 'NotificationController@showAll')->name('user-notification.all');
+    });
+
 });
 
 Auth::routes();
@@ -94,11 +97,13 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::resource('user', 'UserController');
         Route::resource('role', 'RoleController');
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-        Route::get('/notification/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('notification.detail');
+        Route::group(['prefix' => 'notification'], function(){
+            Route::get('/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('notification.detail');
+            Route::get('/all', 'NotificationController@showAll')->name('notification.all');
+        });
     });
 
 });
 
 Route::get('testPusher', 'PusherController@index');
 Route::get('filePusher', 'PusherController@filePusher');
-

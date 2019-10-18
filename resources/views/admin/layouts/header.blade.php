@@ -10,13 +10,22 @@
         </li>
         <!--Notification Menu-->
         <li class="dropdown">
-            <a class="app-nav__item" href="#" data-toggle="dropdown"><i class="fa fa-bell-o fa-lg"></i><span class="badge badge-danger">4</span></a>
+            <a class="app-nav__item" href="#" data-toggle="dropdown"><i class="fa fa-bell-o fa-lg"></i><span class="badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span></a>
             <ul class="app-notification dropdown-menu dropdown-menu-right">
-                <li class="app-notification__title">{{ trans('admin.you_have') }} 4 {{ trans('admin.new_notice') }}</li>
-                @foreach ($notices as $notice)
+                <li class="app-notification__title">
+                    {{ trans('admin.you_have') }}
+                    {{ Auth::user()->unreadNotifications->count() }}
+                    {{ trans('admin.new_notice') }}
+                </li>
+                @foreach ($notifications as $notice)
                     <div class="app-notification__content">
                         <li>
-                            <a class="app-notification__item" href="{{ route('notification.detail', ['idRequire' => getDataFromAdminNotification($notice)['idRequire'], 'idNotice' => $notice->id]) }}">
+                            <a class="app-notification__item {{ ($notice->read_at == null) ? 'bg bg-primary' : ''}}"
+                                href="{{ route('notification.detail',
+                                    [
+                                    'idRequire' => getDataFromAdminNotification($notice)['idRequire'],
+                                    'idNotice' => $notice->id,
+                                    ]) }}">
                                 <span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
                                 <div>
                                     <p class="app-notification__message">
@@ -30,7 +39,7 @@
                         </li>
                     </div>
                 @endforeach
-                <li class="app-notification__footer"><a href="#">{{ trans('admin.see_all_notice') }}</a></li>
+                <li class="app-notification__footer"><a href="{{ route('notification.all') }}">{{ trans('admin.see_all_notice') }}</a></li>
             </ul>
         </li>
   <!-- User Menu-->
