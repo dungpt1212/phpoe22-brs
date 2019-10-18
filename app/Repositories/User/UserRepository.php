@@ -17,6 +17,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return Auth::user()->id;
     }
 
+    public function getAuth()
+    {
+        return Auth::user();
+    }
+
     public function getFollowers()
     {
         $userFollowers = $this->model
@@ -30,6 +35,30 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $followers;
 
+    }
+
+    public function getListAdminsToSendNotice($listUser)
+    {
+
+        return $this->model->whereIn('id', $listUser)->get();
+    }
+
+    public function markUserAsReadNotice($idNotice)
+    {
+        return Auth::user()
+            ->notifications
+            ->where('id', $idNotice)
+            ->first()
+            ->markAsRead();
+    }
+
+    public function deleteNoticeIfSenderDeleteNotice($idNotice)
+    {
+        return Auth::user()
+            ->notifications
+            ->where('id', $idNotice)
+            ->first()
+            ->delete();
     }
 
 }

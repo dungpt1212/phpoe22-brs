@@ -1,8 +1,8 @@
 <?php
-namespace App\Repositories\Notification;
+namespace App\Repositories\nNotification;
 
 use App\Repositories\BaseRepository;
-use App\Repositories\Notification\NotificationRepositoryInterface;
+use App\Repositories\nNotification\NotificationRepositoryInterface;
 
 class NotificationRepository extends BaseRepository implements NotificationRepositoryInterface
 {

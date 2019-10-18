@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,9 +9,6 @@ use App\Repositories\User\UserRepositoryInterface;
 
 class NotificationController extends Controller
 {
-    protected $requireRepo;
-    protected $userRepo;
-
     public function __construct(
         RequestNewBookRepositoryInterface $requireRepo,
         UserRepositoryInterface $userRepo
@@ -29,11 +26,11 @@ class NotificationController extends Controller
         }
         $this->userRepo->markUserAsReadNotice($idNotice);
 
-        return view('admin.notification.notice-require-detail', compact('requireBook'));
+        return view('user.notification.notice-require-detail', compact('requireBook'));
     }
 
     public function showAll()
     {
-        return view('admin.notification.all-notice');
+        return view('user.notification.all-notice');
     }
 }

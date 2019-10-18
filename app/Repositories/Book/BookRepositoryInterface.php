@@ -21,4 +21,6 @@ interface BookRepositoryInterface
 
     public function getFavoriteBook($attr = []);
 
+    public function getReadingBook($attr = []);
+
 }

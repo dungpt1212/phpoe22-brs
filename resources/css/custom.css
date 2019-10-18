@@ -228,4 +228,22 @@ label {
 .btn_format {
     width: 55px;
 }
+.notice {
+    border: 1px solid rgba(100, 100, 100, .4);
+    width: 430px;
+    position: fixed;
+    top: 63px;
+    right: 127px;
+    z-index: 10000;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    background: #fff;
+    display: none;
+}
+.read_notice {
+    background: #009688;
+}
+.icon_notice {
+    color: #009688;
+}
+
 
