@@ -18,8 +18,18 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\CreateRequireAddNewBookEvent' => [
-            'App\Listeners\SendMailWhenRequireSuccessfulListner',
+        'App\Events\IncrementViewForBookEvent' => [
+            'App\Listeners\IncrementViewForBookEventListner',
+        ],
+        'App\Events\SendMailWhenRequestNewBookSuccessEvent' => [
+            'App\Listeners\SendMailToUserListener',
+            'App\Listeners\SendMailToAdminListener',
+        ],
+        'App\Events\MarkBookAsReadingEvent' => [
+            'App\Listeners\MarkBookAsReadingListener',
+        ],
+        'App\Events\ScheduleNoticeForUserEvent' => [
+            'App\Listeners\ScheduleNoticeForUserListener',
         ],
     ];
 

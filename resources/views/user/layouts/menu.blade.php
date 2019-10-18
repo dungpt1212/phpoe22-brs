@@ -48,6 +48,44 @@
                     <li class="wishlist" title="{{ trans('client.your_favorite') }}"><a href="{{ route('book-favorite') }}"></a></li>
                 </li>
                 <li class="history" title="{{ trans('client.history_activity') }}"><a class="fa fa-history mr-4" href="{{ route('activity') }}"></a></li>
+
+                @if (Auth::check())
+                    <li class="history" title="{{ trans('client.reading_book') }}"><a class="fa fa-book mr-4" href="{{ route('reading-book') }}"></a></li>
+                    <li class="history" title="{{ trans('notification') }}">
+                        <a class="fa fa-bell-o bell_notice" href="javascript:void(0)"></a>
+                        <span class="badge badge-danger mr-4">{{ Auth::user()->unreadNotifications->count() }}</span>
+                    </li>
+                    <div class="notice" id="notice">
+                        <p class="text-center">
+                            <b>
+                                <i>
+                                    {{ trans('client.you_have') }}
+                                    {{ Auth::user()->unreadNotifications->count() }}
+                                    {{ trans('client.new_notice') }}
+                                </i>
+                            </b>
+                        </p>
+                        <div class="list-group">
+                            @foreach ($notifications as $notice)
+                                <a href="{{ route('user-notification.detail',
+                                        [
+                                        'idRequire' => getDataFromAdminNotification($notice)['idRequire'],
+                                        'idNotice' => $notice->id,
+                                        ]) }}"
+                                    class="list-group-item list-group-item-action {{ ($notice->read_at == null) ? 'read_notice' : ''}}">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x icon_notice"></i>
+                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    {{ trans('client.your_request_add_new_book') }}
+                                    <b>'{{ getDataFromAdminNotification($notice)['nameBook'] }}'</b>
+                                    {{ trans('client.was_success') }}
+                                </a>
+                            @endforeach
+                        </div>
+                        <p class="mt-3 mb-3 text-center"> <a href="{{ route('user-notification.all') }}" >{{ trans('client.view_all_notice') }}</a></p>
+                    </div>
+                @endif
             </li>
             @if (Auth::check())
                 <li class="setting__bar__icon" title="{{ trans('client.manage_profile') }}"><a class="setting__active" href="#"></a>

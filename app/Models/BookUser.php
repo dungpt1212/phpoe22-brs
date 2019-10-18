@@ -11,6 +11,7 @@ class BookUser extends Model
         'book_id',
         'user_id',
         'favorite',
+        'reading',
     ];
 
     public function book()

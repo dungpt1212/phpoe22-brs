@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VoteRequest;
+use App\Events\IncrementViewForBookEvent;
+use App\Events\MarkBookAsReadingEvent;
 use Auth;
 use App\Models\Book;
 use App\Models\Rate;
@@ -63,11 +65,8 @@ class BookDetailController extends Controller
             return view('errors.notfound');
         }
 
-        $bookKey = 'book_'.$id;
-        if(!Session::has($bookKey)){
-            $book->increment('view');
-            Session::put($bookKey, 1);
-        }
+        event(new IncrementViewForBookEvent($book));
+        event(new MarkBookAsReadingEvent($id));
 
         return view('user.book-read', compact('book'));
     }

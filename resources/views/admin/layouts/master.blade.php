@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- Main CSS-->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/lib-admin/css/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/css/jquery.dataTables.min.css') }}">
@@ -18,6 +19,8 @@
         <main class="app-content">
             @yield('main')
         </main>
+        <script src="{{ asset('js/Chart.js') }}"></script>
+        <script src="{{ asset('assets/pusher-js/dist/web/pusher.min.js') }}"></script>
         <script src="{{ asset(mix('js/custom.js')) }}"></script>
         <script src="{{ asset('assets/lib/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('assets/ckeditor-dev/ckeditor.js') }}"></script>

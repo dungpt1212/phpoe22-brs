@@ -1,5 +1,6 @@
 <?php
 use App\Models\Book;
+use App\Models\BookUser;
 use App\Models\ReviewLike;
 use App\Models\User;
 use App\Models\UserActivity;
@@ -83,14 +84,25 @@ if (!function_exists('avgRate')) {
 
     function getDataFromAdminNotification($notification)
     {
-        $user = User::find($notification->notifiable_id);
-        $requireBook = json_decode($notification->data);
+        $notice = $notification->data;
+        $user = User::find($notice['sender']);
         $data = [];
         $data['user'] = $user->name;
-        $data['idRequire'] = $requireBook->id;
-        $data['nameBook'] = $requireBook->book_name;
+        $data['idRequire'] = $notice['id'];
+        $data['nameBook'] = $notice['book_name'];
 
         return $data;
+    }
+
+    function getReadingBooksByUser($id)
+    {
+        $bookUsers = BookUser::where([
+            'user_id' => $id,
+            'reading' => config('constant.reading'),
+        ])->pluck('book_id')->toArray();
+        $readingBooks = Book::whereIn('id', $bookUsers)->get();
+
+        return $readingBooks;
     }
 
 }
