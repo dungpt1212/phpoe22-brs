@@ -95,5 +95,14 @@ return [
     'your_following_list' => 'Your Followings List',
     'your_follower_list' => 'Your followers List',
     'notfound' => 'Cannot find data',
+    'you_have' => 'You have',
+    'new_notice' => 'new notifications',
+    'all_notice' => 'All your notifications',
+    'your_request_add_new_book' => 'Your request add new book',
+    'was_success' => 'was successful',
+    'view_all_notice' => 'View all notifications',
+    'reading_book' => 'Your reading books',
+    'enter_email' => 'Enter email...',
+    'enter_name' => 'Enter name...',
 
 ];

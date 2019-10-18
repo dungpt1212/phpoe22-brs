@@ -51,9 +51,7 @@ Route::group(['namespace' => 'User'], function(){
 
         Route::get('/search', 'SearchController@index')->name('user-search');
 
-        Route::get('/reading', function(){
-            return view('user.book-reading');
-        })->name('book-reading');
+        Route::get('/reading-books', 'ReadingBookController@index')->name('reading-book');
 
         Route::resource('require', 'RequireBookController')->except([
             'show',
@@ -63,12 +61,16 @@ Route::group(['namespace' => 'User'], function(){
     });
     // profile
     Route::group(['prefix' => 'profile'], function(){
-        Route::get('/edit', function(){
-            return view('user.profile-edit');
-        })->name('profile-edit');
+
+        Route::get('/edit', 'ProfileController@editProfile')->name('profile-edit');
+
+        Route::post('/edit', 'ProfileController@postEditProfile')->name('profile-edit-post');
 
         Route::get('/following', 'ProfileController@following')->name('profile-following');
+
         Route::get('/follower', 'ProfileController@follower')->name('profile-follower');
+
+
     });
     /*activity*/
     Route::group(['prefix' => '/activity'], function(){
@@ -79,6 +81,11 @@ Route::group(['namespace' => 'User'], function(){
     Route::group(['prefix' => 'user'], function(){
         Route::get('/detail/{id}', 'UserFollowOtherController@detailUser')->name('show-detail-user');
         Route::get('/add-follow', 'UserFollowOtherController@addFollow')->name('user-add-follow');
+    });
+    /*notification*/
+    Route::group(['prefix' => 'notification'], function(){
+        Route::get('/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('user-notification.detail');
+        Route::get('/all', 'NotificationController@showAll')->name('user-notification.all');
     });
 
 });
@@ -94,11 +101,16 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::resource('user', 'UserController');
         Route::resource('role', 'RoleController');
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-        Route::get('/notification/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('notification.detail');
+        Route::group(['prefix' => 'notification'], function(){
+            Route::get('/{idRequire}/detail/{idNotice}', 'NotificationController@detail')->name('notification.detail');
+            Route::get('/all', 'NotificationController@showAll')->name('notification.all');
+        });
+
+
+        Route::group(['prefix' => 'chart'], function(){
+            Route::post('/get-book-data-to-chart', 'DashboardController@getBookData');
+            Route::get('/book', 'DashboardController@chartBook')->name('chart.book');
+        });
     });
 
 });
-
-Route::get('testPusher', 'PusherController@index');
-Route::get('filePusher', 'PusherController@filePusher');
-

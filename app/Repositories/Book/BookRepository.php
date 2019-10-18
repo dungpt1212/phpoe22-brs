@@ -72,4 +72,9 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
         return $this->model->whereIn('id', $attr)->get();
     }
 
+    public function getReadingBook($attr = [])
+    {
+        return $this->model->whereIn('id', $attr)->get();
+    }
+
 }

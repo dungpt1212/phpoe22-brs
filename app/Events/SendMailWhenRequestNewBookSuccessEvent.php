@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Models\RequestNewbook;
 
-class CreateRequireAddNewBookEvent
+class SendMailWhenRequestNewBookSuccessEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

@@ -10,6 +10,12 @@ use App\Enums\Status;
 
 class RequestBookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:book-update');
+    }
+
     public function index()
     {
         $requestBook = RequestNewbook::orderBy('id', 'DESC')
