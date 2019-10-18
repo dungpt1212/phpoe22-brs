@@ -21,4 +21,14 @@ class BookUserRepository extends BaseRepository implements BookUserRepositoryInt
             ->pluck('book_id');
     }
 
+    public function getReadingBookByUser($authId)
+    {
+        return $this->model
+            ->where([
+                [ 'reading', '=', 1 ],
+                [ 'user_id', '=', $authId ],
+            ])
+            ->pluck('book_id');
+    }
+
 }

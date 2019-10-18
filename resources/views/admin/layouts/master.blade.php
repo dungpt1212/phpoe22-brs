@@ -18,6 +18,7 @@
         <main class="app-content">
             @yield('main')
         </main>
+        <script src="{{ asset('js/Chart.js') }}"></script>
         <script src="{{ asset(mix('js/custom.js')) }}"></script>
         <script src="{{ asset('assets/lib/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('assets/ckeditor-dev/ckeditor.js') }}"></script>
